@@ -547,52 +547,52 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			StartupStep contextRefresh = this.applicationStartup.start("spring.context.refresh");
 
 			// Prepare this context for refreshing.
-//			×¼±¸¸ÃÉÏÏÂÎÄµÄË¢ĞÂ¹¤×÷
+//			å‡†å¤‡è¯¥ä¸Šä¸‹æ–‡çš„åˆ·æ–°å·¥ä½œ
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-//			¸æËß×ÓÀàË¢ĞÂÄÚ²¿µÄbean¹¤³§
+//			å‘Šè¯‰å­ç±»åˆ·æ–°å†…éƒ¨çš„beanå·¥å‚
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
-//			×¼±¸ÔÚ¸ÃÉÏÏÂÎÄÖĞÓÃµÄbean¹¤³§
+//			å‡†å¤‡åœ¨è¯¥ä¸Šä¸‹æ–‡ä¸­ç”¨çš„beanå·¥å‚
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
-//				ÔÊĞí¸ÃÉÏÏÂÎÄµÄ×ÓÀàÖĞ¶Ôbean¹¤³§½øĞĞºó´¦Àí
+//				å…è®¸è¯¥ä¸Šä¸‹æ–‡çš„å­ç±»ä¸­å¯¹beanå·¥å‚è¿›è¡Œåå¤„ç†
 				postProcessBeanFactory(beanFactory);
 
 				StartupStep beanPostProcess = this.applicationStartup.start("spring.context.beans.post-process");
 				// Invoke factory processors registered as beans in the context.
-//				µ÷ÓÃ¹¤³§´¦ÀíÆ÷×¢²áÎªbeanÔÚ±¾ÉÏÏÂÎÄÖĞ
+//				è°ƒç”¨å·¥å‚å¤„ç†å™¨æ³¨å†Œä¸ºbeanåœ¨æœ¬ä¸Šä¸‹æ–‡ä¸­
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
-//				×¢²áÀ¹½Øbean´´½¨µÄbeanºóÖÃ´¦ÀíÆ÷
+//				æ³¨å†Œæ‹¦æˆªbeanåˆ›å»ºçš„beanåç½®å¤„ç†å™¨
 				registerBeanPostProcessors(beanFactory);
 				beanPostProcess.end();
-// ³õÊ¼»¯ÉÏÏÂÎÄµÄÏûÏ¢Ô´
+// åˆå§‹åŒ–ä¸Šä¸‹æ–‡çš„æ¶ˆæ¯æº
 				// Initialize message source for this context.
 				initMessageSource();
-//Îª´ËÉÏÏÂÎÄ³õÊ¼»¯multicaster
+//ä¸ºæ­¤ä¸Šä¸‹æ–‡åˆå§‹åŒ–multicaster
 				// Initialize event multicaster for this context.
 				initApplicationEventMulticaster();
 
-//				³õÊ¼»¯ÌØ¶¨ÉÏÏÂÎÄÖĞµÄÆäËûÌØÊâbeanµÄ×ÓÀà
+//				åˆå§‹åŒ–ç‰¹å®šä¸Šä¸‹æ–‡ä¸­çš„å…¶ä»–ç‰¹æ®Šbeançš„å­ç±»
 				// Initialize other special beans in specific context subclasses.
 				onRefresh();
 
 				// Check for listener beans and register them.
-//				¼ì²ébeanµÄ¼àÌıÆ÷²¢×¢²áËüÃÇ
+//				æ£€æŸ¥beançš„ç›‘å¬å™¨å¹¶æ³¨å†Œå®ƒä»¬
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
-//				ÊµÀı»¯ËùÓĞÊ£ÏÂµÄµ¥Àı£¨·ÇÀÁ¼ÓÔØµÄ£©
+//				å®ä¾‹åŒ–æ‰€æœ‰å‰©ä¸‹çš„å•ä¾‹ï¼ˆéæ‡’åŠ è½½çš„ï¼‰
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
-//				×îºóÒ»²½£º·¢²¼ÏàÓ¦µÄÊÂ¼ş
+//				æœ€åä¸€æ­¥ï¼šå‘å¸ƒç›¸åº”çš„äº‹ä»¶
 				finishRefresh();
 			}
 
@@ -641,16 +641,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment.
-//		³õÊ¼»¯ËùÓĞÕ¼Î»·ûµÄÅäÖÃÔÚµ±Ç°ÉÏÏÂÎÄ»·¾³ÖĞ
+//		åˆå§‹åŒ–æ‰€æœ‰å ä½ç¬¦çš„é…ç½®åœ¨å½“å‰ä¸Šä¸‹æ–‡ç¯å¢ƒä¸­
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
-//		ÑéÖ¤ËùÓĞ±ê¼ÇÎª±ØĞèµÄÊôĞÔ¶¼ÊÇ¿É½âÎöµÄ
+//		éªŒè¯æ‰€æœ‰æ ‡è®°ä¸ºå¿…éœ€çš„å±æ€§éƒ½æ˜¯å¯è§£æçš„
 		// see ConfigurablePropertyResolver#setRequiredProperties
 		getEnvironment().validateRequiredProperties();
 
 		// Store pre-refresh ApplicationListeners...
-//		Ìí¼ÓÔ¤Ë¢ĞÂµÄ¼àÌıÕß
+//		æ·»åŠ é¢„åˆ·æ–°çš„ç›‘å¬è€…
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}
@@ -685,7 +685,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return getBeanFactory();
 	}
 
-	//ÅäÖÃ¹¤³§µÄ±ê×¼ÉÏÏÂÎÄÌØĞÔ£¬ÀıÈçÉÏÏÂÎÄµÄ ClassLoader ºÍºó´¦ÀíÆ÷¡£
+	//é…ç½®å·¥å‚çš„æ ‡å‡†ä¸Šä¸‹æ–‡ç‰¹æ€§ï¼Œä¾‹å¦‚ä¸Šä¸‹æ–‡çš„ ClassLoader å’Œåå¤„ç†å™¨ã€‚
 	/**
 	 * Configure the factory's standard context characteristics,
 	 * such as the context's ClassLoader and post-processors.
@@ -693,13 +693,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		// Tell the internal bean factory to use the context's class loader etc.
-//		¸æËßÄÚ²¿ bean ¹¤³§Ê¹ÓÃÉÏÏÂÎÄµÄÀà¼ÓÔØÆ÷µÈ
+//		å‘Šè¯‰å†…éƒ¨ bean å·¥å‚ä½¿ç”¨ä¸Šä¸‹æ–‡çš„ç±»åŠ è½½å™¨ç­‰
 		beanFactory.setBeanClassLoader(getClassLoader());
 		if (!shouldIgnoreSpel) {
 			beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
 		}
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
-//Ê¹ÓÃÉÏÏÂÎÄ»Øµ÷£¬ÅäÖÃbean¹¤³§
+//ä½¿ç”¨ä¸Šä¸‹æ–‡å›è°ƒï¼Œé…ç½®beanå·¥å‚
 		// Configure the bean factory with context callbacks.
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
@@ -709,25 +709,25 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.ignoreDependencyInterface(MessageSourceAware.class);
 		beanFactory.ignoreDependencyInterface(ApplicationContextAware.class);
 		beanFactory.ignoreDependencyInterface(ApplicationStartupAware.class);
-//BeanFactory½Ó¿ÚÎ´ÔÚÆÕÍ¨¹¤³§ÖĞ×¢²áÎ´¿ÉÒÔ½âÎöµÄÀàĞÍ
+//BeanFactoryæ¥å£æœªåœ¨æ™®é€šå·¥å‚ä¸­æ³¨å†Œæœªå¯ä»¥è§£æçš„ç±»å‹
 		// BeanFactory interface not registered as resolvable type in a plain factory.
-//		MessageSource ×÷ÎªBean×¢Èë²¢×Ô¶¯ÕÒµ½ÇÒ½øĞĞ×Ô¶¯×°Åä
+//		MessageSource ä½œä¸ºBeanæ³¨å…¥å¹¶è‡ªåŠ¨æ‰¾åˆ°ä¸”è¿›è¡Œè‡ªåŠ¨è£…é…
 		// MessageSource registered (and found for autowiring) as a bean.
 		beanFactory.registerResolvableDependency(BeanFactory.class, beanFactory);
 		beanFactory.registerResolvableDependency(ResourceLoader.class, this);
 		beanFactory.registerResolvableDependency(ApplicationEventPublisher.class, this);
 		beanFactory.registerResolvableDependency(ApplicationContext.class, this);
-//½«ÓÃÓÚ¼ì²âÄÚ²¿beanµÄºóÖÃ´¦ÀíÆ÷×¢²áÎªApplicationListeners
+//å°†ç”¨äºæ£€æµ‹å†…éƒ¨beançš„åç½®å¤„ç†å™¨æ³¨å†Œä¸ºApplicationListeners
 		// Register early post-processor for detecting inner beans as ApplicationListeners.
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
-//¼ì²âLoadTimeWeaver²¢×¼±¸¼ÓÈë£¬Èç¹ûÕÒµ½µÄ»°
+//æ£€æµ‹LoadTimeWeaverå¹¶å‡†å¤‡åŠ å…¥ï¼Œå¦‚æœæ‰¾åˆ°çš„è¯
 		// Detect a LoadTimeWeaver and prepare for weaving, if found.
 		if (!NativeDetector.inNativeImage() && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
 			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
 			// Set a temporary ClassLoader for type matching.
 			beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
 		}
-//×¢²áÄ¬ÈÏµÄenvironment Bean
+//æ³¨å†Œé»˜è®¤çš„environment Bean
 		// Register default environment beans.
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
@@ -903,34 +903,34 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * initializing all remaining singleton beans.
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
-//		Îª´ËÉÏÏÂÎÄ³õÊ¼»¯×ª»»·şÎñ
+//		ä¸ºæ­¤ä¸Šä¸‹æ–‡åˆå§‹åŒ–è½¬æ¢æœåŠ¡
 		// Initialize conversion service for this context.
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
 			beanFactory.setConversionService(
 					beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
 		}
-//Èç¹ûÃ»ÓĞBeanFactoryPostProcessorµÄ»°£¬×¢ÈëÒ»¸öÄ¬ÈÏµÄÕ¼Î»·û½âÎöÆ÷¡£ÀıÈç£ºPropertySourcesPlaceholderConfigurer¡£
-//		ÔÚÖ÷ÒªÓÃÓÚ½âÎö×¢½âµÄÊôĞÔÖµÖ®Ç°×¢Èë¡£
+//å¦‚æœæ²¡æœ‰BeanFactoryPostProcessorçš„è¯ï¼Œæ³¨å…¥ä¸€ä¸ªé»˜è®¤çš„å ä½ç¬¦è§£æå™¨ã€‚ä¾‹å¦‚ï¼šPropertySourcesPlaceholderConfigurerã€‚
+//		åœ¨ä¸»è¦ç”¨äºè§£ææ³¨è§£çš„å±æ€§å€¼ä¹‹å‰æ³¨å…¥ã€‚
 		// Register a default embedded value resolver if no BeanFactoryPostProcessor
 		// (such as a PropertySourcesPlaceholderConfigurer bean) registered any before:
 		// at this point, primarily for resolution in annotation attribute values.
 		if (!beanFactory.hasEmbeddedValueResolver()) {
 			beanFactory.addEmbeddedValueResolver(strVal -> getEnvironment().resolvePlaceholders(strVal));
 		}
-// ¾¡ÔçµØ³õÊ¼»¯LoadTimeWeaverAware bean£¬ÒÔ±ã¾¡Ôç×¢²áËüÃÇµÄ×ª»»Æ÷
+// å°½æ—©åœ°åˆå§‹åŒ–LoadTimeWeaverAware beanï¼Œä»¥ä¾¿å°½æ—©æ³¨å†Œå®ƒä»¬çš„è½¬æ¢å™¨
 		// Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.
 		String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
 		for (String weaverAwareName : weaverAwareNames) {
 			getBean(weaverAwareName);
 		}
-//½ûÓÃÄ£°åÀà¼ÓÔØÆ÷
+//ç¦ç”¨æ¨¡æ¿ç±»åŠ è½½å™¨
 		// Stop using the temporary ClassLoader for type matching.
 		beanFactory.setTempClassLoader(null);
-// ÔÊĞí»·¾³ËùÓĞµÄbean¶¨ÒåµÄÔªÊı¾İ£¬ºöÂÔ¶¨ÒåµÄ±ä»¯¡£
+// å…è®¸ç¯å¢ƒæ‰€æœ‰çš„beanå®šä¹‰çš„å…ƒæ•°æ®ï¼Œå¿½ç•¥å®šä¹‰çš„å˜åŒ–ã€‚
 		// Allow for caching all bean definition metadata, not expecting further changes.
 		beanFactory.freezeConfiguration();
-//ÊµÀı»¯ËùÓĞ·ÇÀÁ¼ÓÔØµÄbean
+//å®ä¾‹åŒ–æ‰€æœ‰éæ‡’åŠ è½½çš„bean
 		// Instantiate all remaining (non-lazy-init) singletons.
 		beanFactory.preInstantiateSingletons();
 	}
